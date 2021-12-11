@@ -1,0 +1,36 @@
+version: "3"
+
+services:
+  broker:
+    image: redis:alpine
+    ports:
+      - "6379:6379"
+  master:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: worker_pool
+    depends_on:
+      - broker
+    environment:
+      - BROKER_HOST=broker
+    volumes:
+      - ./src:/src
+      - ./logs:/logs
+    entrypoint:
+      - python
+      - /src/worker_pool/entrypoints/master.py
+  workers:
+    image: worker_pool
+    depends_on:
+      - broker
+      - master
+    environment:
+      - BROKER_HOST=broker
+    volumes:
+      - ./src:/src
+      - ./logs:/logs
+      - ./data:/data
+    entrypoint:
+      - python
+      - /src/worker_pool/entrypoints/worker.py
