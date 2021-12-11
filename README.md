@@ -2,7 +2,7 @@
 
 ## About
 
-WorkerPool is a project used to crawl download information about the most visited websites from https://www.alexa.com/topsites/countries.
+WorkerPool is a project used to download information about the most visited websites from https://www.alexa.com/topsites/countries.
 
 ## Dependencies
 
