@@ -38,3 +38,8 @@ def get_websites(country_url):
         raise CrawlingException("Empty website list")
     
     return websites
+
+
+def get_content(url):
+    content = generic_get(url)
+    return content.decode()
